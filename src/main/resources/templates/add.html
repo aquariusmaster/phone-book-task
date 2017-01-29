@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Phone</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<nav class="navbar navbar-inverse ">
+    <div class="container">
+        <!--<div class="navbar-header">-->
+        <!--<a class="navbar-brand" href="/" th:href="@{/}">List</a>-->
+        <!--</div>-->
+        <div id="navbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/" th:href="@{/}">List</a></li>
+                <li class="active"><a href="/add" th:href="@{/add}">Add Phone</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div style="padding-top: 60px"></div>
+<div class="container">
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-9">
+            <form class="form-horizontal" accept-charset="UTF-8" role="form" th:object="${entryForm}" th:action="@{/add}" method="post">
+
+                <legend>Add New Phone Number</legend>
+                <div class="form-group">
+                    <label for="name" class="col-sm-3 control-label">Name:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="name" th:field="*{name}">
+                        <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
+                              class="help-inline label-danger">Incorrect data</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="country" class="col-sm-3 control-label">Country:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="country" th:field="*{country}">
+                        <span th:if="${#fields.hasErrors('country')}" th:errors="*{country}"
+                              class="help-inline label-danger">Incorrect data</span>
+                    </div>
+                    <label for="city" class="col-sm-1 control-label">City:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="city" th:field="*{city}">
+                        <span th:if="${#fields.hasErrors('city')}" th:errors="*{city}"
+                              class="help-inline label-danger">Incorrect data</span>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="addressLine" class="col-sm-3 control-label">Address Line:</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="addressLine" th:field="*{addressLine}" name="addressLine" placeholder="Street, build, apart">
+                        <span th:if="${#fields.hasErrors('addressLine')}" th:errors="*{addressLine}"
+                              class="help-inline label-danger">Incorrect data</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="code" class="col-sm-3 control-label">Phone:</label>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <div class="input-group-addon">(</div>
+                            <input type="tel" class="form-control" id="code" name="code" placeholder="Area code">
+                            <div class="input-group-addon">)</div>
+                            <span th:if="${#fields.hasErrors('code')}" th:errors="*{code}"
+                                  class="help-inline label-danger">Incorrect data</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone. number">
+                        <span th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"
+                              class="help-inline label-danger">Incorrect data</span>
+                    </div>
+                </div>
+                <!--<div class="col-sm-12">-->
+                    <!--<p style="padding:10px;"></p>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <div class="col-sm-6">
+                        <p style="padding:10px;"></p>
+                    </div>
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            <p style="padding:20px;"></p>
+        </div>
+    </div>
+
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

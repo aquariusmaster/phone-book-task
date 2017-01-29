@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Phones</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <!--[if IE]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+<nav class="navbar navbar-inverse ">
+    <div class="container">
+        <!--<div class="navbar-header">-->
+        <!--<a class="navbar-brand" href="/" th:href="@{/}">List</a>-->
+        <!--</div>-->
+        <div id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/" th:href="@{/}">List</a></li>
+                <li><a href="/add" th:href="@{/add}">Add Phone</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div class="row row-content">
+
+        <div class="col-xs-12 col-sm-12">
+            <form class="form-horizontal" role="search" action="search" th:action="@{/search}" method="get">
+                <div class="input-group">
+                    <input type="text"  name="q" class="form-control">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">Search</button>
+                    </span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row row-content">
+        <div class="col-xs-12 col-sm-3">
+            <p style="padding:20px;"></p>
+        </div>
+        <div class="col-xs-12" th:if="${!(list.isEmpty())}">
+            <p th:utext="${list.size()} + ' found'"></p>
+            <div class="table">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phones</th>
+                    </tr>
+                    </thead>
+                    <tr data-th-each="entry : ${list}">
+                        <td data-th-text="${entry.getUserId()}">Phone entry</td>
+                        <td data-th-text="${entry.getName()}">Phone entry</td>
+                        <td data-th-text="${entry.getAddress()}">Phone entry</td>
+                        <td>
+                            <p th:each="phone : ${entry.getPhones()}">
+                                <span data-th-text="${phone}"></span>
+                                <!--<span>&nbsp;</span>-->
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-xs-12" th:unless="${!(list.isEmpty())}">
+            <p align="center">No entries</p>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            <p style="padding:20px;"></p>
+        </div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
