@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Entity
 public class Address implements Serializable{
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long addressId;
     @Column(nullable = false)
     private String country;

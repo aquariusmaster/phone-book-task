@@ -4,6 +4,7 @@ import javax.validation.constraints.Size;
 
 /**
  * Created by andreb on 26.01.17.
+ * DTO use for build User object from Form
  */
 public class EntryForm {
 

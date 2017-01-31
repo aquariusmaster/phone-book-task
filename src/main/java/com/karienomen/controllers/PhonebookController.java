@@ -1,6 +1,5 @@
 package com.karienomen.controllers;
 
-import com.karienomen.repository.UserRepository;
 import com.karienomen.model.User;
 import com.karienomen.model.EntryForm;
 import com.karienomen.service.UserService;
@@ -67,9 +66,9 @@ public class PhonebookController {
     }
 
     @RequestMapping("/search")
-    public String test(@RequestParam(value = "q", required = false) String q, Model model){
-        logger.info("Get query filter: " + q);
-        List<User> list = userService.findAll(q);
+    public String test(@RequestParam(value = "q", required = false) String query, Model model){
+        logger.info("Get query filter: " + query);
+        List<User> list = userService.findByFilter(query);
         model.addAttribute("list", list);
         return "list";
     }

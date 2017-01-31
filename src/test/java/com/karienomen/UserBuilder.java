@@ -7,7 +7,7 @@ import com.karienomen.model.User;
 /**
  * Created by andreb on 29.01.17.
  */
-public class UserUtil {
+public class UserBuilder {
 
     public static User userFiller(){
         User user = new User();

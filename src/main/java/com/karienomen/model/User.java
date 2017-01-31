@@ -1,5 +1,10 @@
 package com.karienomen.model;
 
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.GeneratorType;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,13 +16,15 @@ import java.util.Set;
 @Entity
 public class User {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
     @Column(nullable = false)
     private String name;
     @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     private Address address;
     @OneToMany(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.JOIN)
     private Set<PhoneNumber> phones = new HashSet<>();
 
     public User(){}

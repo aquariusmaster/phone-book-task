@@ -5,7 +5,6 @@ import com.karienomen.model.PhoneNumber;
 import com.karienomen.model.User;
 import com.karienomen.service.UserService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Iterator;
 import java.util.List;
 
-import static com.karienomen.UserUtil.userFiller;
+import static com.karienomen.UserBuilder.userFiller;
 import static org.junit.Assert.*;
 
 /**
@@ -114,17 +113,17 @@ public class UserTest {
         user.getPhones().add(new PhoneNumber("000", "123456"));
         userService.save(user);
 
-        List<User> searchList = userService.findAll("123456");
+        List<User> searchList = userService.findByFilter("123456");
         assertEquals(searchList.size(), 1);
 
         User user2 = userFiller();
         user2.setName("Ivanov");
         userService.save(user2);
 
-        searchList = userService.findAll("www");
+        searchList = userService.findByFilter("www");
         assertEquals(searchList.size(), 0);
 
-        searchList = userService.findAll("16");
+        searchList = userService.findByFilter("16");
         assertEquals(searchList.size(), 2);
 
     }
