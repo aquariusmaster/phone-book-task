@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import static com.karienomen.UserBuilder.userFiller;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
 
 /**
@@ -32,37 +33,37 @@ public class UserTest {
         userService.deleteAll();
     }
 
-//    @Ignore
+
     @Test
     public void userSaveTest(){
 
         User user = userFiller();
         User fetched = userService.save(user);
-        assertEquals(fetched, user);
+        assertThat(fetched, equalTo(user));
 
         List<User> list = userService.findAll();
-        assertTrue(list.size() == 1);
+        assertThat(list, hasSize(1));
 
         User oldUser = userFiller();
         userService.save(user);
         list = userService.findAll();
-        assertTrue(list.size() == 1);
+        assertThat(list, hasSize(1));
     }
-//    @Ignore
+
     @Test
     public void userAddressUpdateTest() {
 
         User user = userFiller();
         user.getAddress().setCity("Kharkiv");
         User savedUser = userService.save(user);
-        assertEquals(user.getAddress(), savedUser.getAddress());
+        assertThat(user.getAddress(), samePropertyValuesAs(savedUser.getAddress()));
         user.getAddress().setCity("NotCity");
         userService.save(user);
         List<User> list = userService.findAll();
-        assertTrue(list.size() == 1);
+        assertThat(list, hasSize(1));
 
     }
-//    @Ignore
+
     @Test
     public void userUpdateTest() {
 
@@ -71,21 +72,20 @@ public class UserTest {
         PhoneNumber newPhone = new PhoneNumber("111", "1234567");
         user.getPhones().add(newPhone);
         User fetched = userService.save(user);
-        assertTrue(fetched.getPhones().size() == 2);
+        assertThat(fetched.getPhones(), hasSize(2));
 
         fetched.getAddress().setCountry("USA");
         User fetched2 = userService.save(fetched);
-        assertEquals(fetched2.getAddress().getCountry(), "USA");
-        assertEquals(fetched2.getAddress().getCity(), userFiller().getAddress().getCity());
+        assertThat(fetched2.getAddress().getCountry(), equalTo("USA"));
+        assertThat(fetched2.getAddress().getCity(), equalTo(userFiller().getAddress().getCity()));
 
         List<User> list = userService.findAll();
-        assertEquals(list.size(), 1);
-        System.out.println(list);
+        assertThat(list, hasSize(1));
 
     }
-//    @Ignore
+
     @Test
-    public void phoneNumberTest() {
+    public void phoneNumberEntityTest() {
 
         Iterator<PhoneNumber> it = userFiller().getPhones().iterator();
         PhoneNumber phone = it.next();
@@ -94,15 +94,17 @@ public class UserTest {
         PhoneNumber phone2 = it2.next();
         phone2.setCode("044");
 
-        assertFalse(phone.hashCode() == phone2.hashCode());
-        assertFalse(phone == phone2);
+        assertThat(phone.hashCode(), not(phone2.hashCode()));
+        assertThat(phone, not(phone2));
 
-        userFiller().getPhones().add(phone2);
+    }
+
+    @Test
+    public void addressEntityTest() {
 
         Address address1 = userFiller().getAddress();
         address1.setCountry("Union");
-        assertNotEquals(address1, userFiller().getAddress());
-        assertNotEquals(address1, userFiller().getAddress());
+        assertThat(address1, not(userFiller().getAddress()));
 
     }
 
@@ -114,17 +116,17 @@ public class UserTest {
         userService.save(user);
 
         List<User> searchList = userService.findByFilter("123456");
-        assertEquals(searchList.size(), 1);
+        assertThat(searchList, hasSize(1));
 
         User user2 = userFiller();
         user2.setName("Ivanov");
         userService.save(user2);
 
         searchList = userService.findByFilter("www");
-        assertEquals(searchList.size(), 0);
+        assertThat(searchList, empty());
 
         searchList = userService.findByFilter("16");
-        assertEquals(searchList.size(), 2);
+        assertThat(searchList, hasSize(2));
 
     }
 

@@ -27,7 +27,6 @@ import static org.mockito.Mockito.when;
  * Created by andreb on 29.01.17.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
 public class ControllerTest {
 
     @Mock
