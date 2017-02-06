@@ -13,6 +13,6 @@ public interface UserService {
     User save(User user);
     void delete(User user);
     List<User> findAll();
-    List<User> findByFilter(String search);
+    List<User> findByFilter(String searchTerm);
     void deleteAll();
 }

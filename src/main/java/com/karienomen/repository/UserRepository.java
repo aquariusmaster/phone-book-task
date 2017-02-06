@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by andreb on 26.01.17.
@@ -15,7 +16,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor {
 
     User findByName(String name);
-    User save(User user);
-    void delete(User user);
-    void deleteAll();
+
 }

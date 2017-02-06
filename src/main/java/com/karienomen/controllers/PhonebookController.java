@@ -66,9 +66,9 @@ public class PhonebookController {
     }
 
     @RequestMapping("/search")
-    public String test(@RequestParam(value = "q", required = false) String query, Model model){
-        logger.info("Get query filter: " + query);
-        List<User> list = userService.findByFilter(query);
+    public String test(@RequestParam(value = "q", required = false) String searchTerm, Model model){
+        logger.info("Get query filter: " + searchTerm);
+        List<User> list = userService.findByFilter(searchTerm);
         model.addAttribute("list", list);
         return "list";
     }

@@ -16,12 +16,12 @@ public class UserSpecification {
     /*
     * Create Criteria object that is used to filter all User fields for a given search parameter
     */
-    public static Specification<User> searchInAllFields(final String search) {
+    public static Specification<User> searchInAllFields(final String searchTerm) {
         return new Specification<User>() {
             @Override
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
-                String containsLikePattern = getContainsLikePattern(search);
+                String containsLikePattern = getContainsLikePattern(searchTerm);
 
                 Predicate namePredicate = cb.like(root.get(User_.name), containsLikePattern);
 
