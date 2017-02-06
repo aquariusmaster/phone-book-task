@@ -66,9 +66,9 @@ public class UserServiceImpl implements UserService{
     public List<User> findByFilter(String searchTerm){
 
         List<User> fetchedList = userRepository.findAll(Specifications.where(UserSpecification.searchInAllFields(searchTerm)));
-        //filter redundant values
-        Set<User> usersSet = new HashSet(fetchedList);
-        List<User> users = new ArrayList<>(usersSet);
+        //filter redundant values for fetchedList
+        Set<User> userSet = new HashSet(fetchedList);
+        List<User> users = new ArrayList<>(userSet);
         logger.info("Fetched entries with query '" + searchTerm + "': " + users);
         return users;
     }

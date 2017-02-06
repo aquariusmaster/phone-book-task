@@ -3,7 +3,7 @@ package com.karienomen.controllers;
 import com.karienomen.model.User;
 import com.karienomen.model.EntryForm;
 import com.karienomen.service.UserService;
-import com.karienomen.service.convertor.UserRequestToUserConverter;
+import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class PhonebookController {
     private static Logger logger = LoggerFactory.getLogger(PhonebookController.class);
 
     @Autowired
-    private UserRequestToUserConverter userRequestToUserConverter;
+    private EntryFormToUserConverter entryFormToUserConverter;
 
     @Autowired
     private UserService userService;
@@ -50,7 +50,7 @@ public class PhonebookController {
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String savingEntry(@ModelAttribute @Valid EntryForm entryForm,
+    public String saveEntry(@ModelAttribute @Valid EntryForm entryForm,
                               BindingResult result,
                               Model model){
         if (result.hasErrors()){
@@ -58,7 +58,7 @@ public class PhonebookController {
             return "add";
         }
         logger.info("Form fetched: " + entryForm);
-        User user = userRequestToUserConverter.convert(entryForm);
+        User user = entryFormToUserConverter.convert(entryForm);
 
         userService.save(user);
 
@@ -66,7 +66,7 @@ public class PhonebookController {
     }
 
     @RequestMapping("/search")
-    public String test(@RequestParam(value = "q", required = false) String searchTerm, Model model){
+    public String search(@RequestParam(value = "q", required = false) String searchTerm, Model model){
         logger.info("Get query filter: " + searchTerm);
         List<User> list = userService.findByFilter(searchTerm);
         model.addAttribute("list", list);

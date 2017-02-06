@@ -125,7 +125,7 @@ public class UserTest {
         searchList = userService.findByFilter("www");
         assertThat(searchList, empty());
 
-        searchList = userService.findByFilter("16");
+        searchList = userService.findByFilter("11");
         assertThat(searchList, hasSize(2));
 
     }

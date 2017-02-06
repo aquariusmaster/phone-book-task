@@ -1,8 +1,12 @@
 package com.karienomen;
 
 import com.karienomen.controllers.PhonebookController;
+import com.karienomen.model.Address;
+import com.karienomen.model.EntryForm;
+import com.karienomen.model.PhoneNumber;
 import com.karienomen.model.User;
 import com.karienomen.service.UserService;
+import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,6 +26,9 @@ import static com.karienomen.UserBuilder.userFiller;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
+import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.*;
 
 /**
  * Created by andreb on 29.01.17.
@@ -61,5 +68,34 @@ public class ControllerTest {
                 .andExpect(model().attribute("list", expectedList));
     }
 
+    @Test
+    public void convertEntryToUserEntryTest() throws Exception{
+        User user = userFiller();
+
+        EntryForm entry = new EntryForm();
+        entry.setName(user.getName());
+        entry.setCountry(user.getAddress().getCountry());
+        entry.setCity(user.getAddress().getCity());
+        entry.setAddressLine(user.getAddress().getAddressLine());
+        PhoneNumber phone = user.getPhones().iterator().next();
+        entry.setCode(phone.getCode());
+        entry.setPhone(phone.getPhone());
+
+        User convertedUser = EntryFormToUserConverter.convert(entry);
+
+        assertThat(user, equalTo(convertedUser));
+        assertThat(user.getAddress(), equalTo(convertedUser.getAddress()));
+        assertThat(user.getPhones(), equalTo(convertedUser.getPhones()));
+        assertThat(convertedUser.getPhones(), contains(phone));
+
+    }
+
+    @Test
+    public void saveEntryTest() throws Exception{
+        User user = userFiller();
+
+        //TODO
+
+    }
 
 }

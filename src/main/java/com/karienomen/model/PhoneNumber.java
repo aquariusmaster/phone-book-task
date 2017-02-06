@@ -23,12 +23,7 @@ public class PhoneNumber implements Serializable{
         this.phone = phone;
     }
 
-    public PhoneNumber(String code, String phone, User user){
-        this.code = code;
-        this.phone = phone;
-    }
-
-    public PhoneNumber(long id, String code, String phone, User user){
+    public PhoneNumber(long id, String code, String phone){
         this.id = id;
         this.code = code;
         this.phone = phone;

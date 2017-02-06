@@ -22,14 +22,14 @@ public class UserSpecification {
             public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 
                 String containsLikePattern = getContainsLikePattern(searchTerm);
-
+                //Create Predicate for name field User object
                 Predicate namePredicate = cb.like(root.get(User_.name), containsLikePattern);
-
+                //Create Predicate for Inner object PhoneNumber list
                 SetJoin<User, PhoneNumber> setJoin = root.join(User_.phones);
                 Predicate phonesPredicate = cb.or(
                         cb.like(setJoin.get(PhoneNumber_.code), containsLikePattern),
                         cb.like(setJoin.get(PhoneNumber_.phone), containsLikePattern));
-
+                //Predicate for Address inner object
                 Path<Address> userAddress = root.get(User_.address);
                 Predicate addressPredicate = cb.or(
                         cb.like(userAddress.get(Address_.country), containsLikePattern),

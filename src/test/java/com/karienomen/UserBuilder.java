@@ -16,10 +16,10 @@ public class UserBuilder {
         Address address = new Address();
         address.setCountry("Ukraine");
         address.setCity("Kyiv");
-        address.setAddressLine("Kopernika, 16B, 48");
+        address.setAddressLine("Kopernika, 11, 44");
         user.setAddress(address);
 
-        PhoneNumber phoneNumber = new PhoneNumber("066", "2046725", user);
+        PhoneNumber phoneNumber = new PhoneNumber("066", "2046725");
 
         user.getPhones().add(phoneNumber);
 

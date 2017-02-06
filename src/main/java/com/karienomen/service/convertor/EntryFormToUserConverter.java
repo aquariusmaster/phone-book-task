@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
  * Created by andreb on 26.01.17.
  */
 @Component
-public class UserRequestToUserConverter {
+public class EntryFormToUserConverter {
 
-    public User convert(EntryForm request){
+    public static User convert(EntryForm request){
 
         User user = new User();
         user.setName(request.getName());
