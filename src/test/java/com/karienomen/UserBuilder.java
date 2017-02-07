@@ -1,6 +1,7 @@
 package com.karienomen;
 
 import com.karienomen.model.Address;
+import com.karienomen.model.EntryForm;
 import com.karienomen.model.PhoneNumber;
 import com.karienomen.model.User;
 
@@ -24,5 +25,21 @@ public class UserBuilder {
         user.getPhones().add(phoneNumber);
 
         return user;
+    }
+
+    public static EntryForm entryFormFiller(){
+
+        User user = userFiller();
+
+        EntryForm entry = new EntryForm();
+        entry.setName(user.getName());
+        entry.setCountry(user.getAddress().getCountry());
+        entry.setCity(user.getAddress().getCity());
+        entry.setAddressLine(user.getAddress().getAddressLine());
+        PhoneNumber phone = user.getPhones().iterator().next();
+        entry.setCode(phone.getCode());
+        entry.setPhone(phone.getPhone());
+
+        return entry;
     }
 }

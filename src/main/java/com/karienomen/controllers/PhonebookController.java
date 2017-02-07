@@ -1,7 +1,7 @@
 package com.karienomen.controllers;
 
-import com.karienomen.model.User;
 import com.karienomen.model.EntryForm;
+import com.karienomen.model.User;
 import com.karienomen.service.UserService;
 import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.slf4j.Logger;
@@ -25,9 +25,6 @@ import java.util.List;
 public class PhonebookController {
 
     private static Logger logger = LoggerFactory.getLogger(PhonebookController.class);
-
-    @Autowired
-    private EntryFormToUserConverter entryFormToUserConverter;
 
     @Autowired
     private UserService userService;
@@ -58,7 +55,7 @@ public class PhonebookController {
             return "add";
         }
         logger.info("Form fetched: " + entryForm);
-        User user = entryFormToUserConverter.convert(entryForm);
+        User user = EntryFormToUserConverter.convert(entryForm);
 
         userService.save(user);
 

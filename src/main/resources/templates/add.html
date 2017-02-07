@@ -16,9 +16,6 @@
 <body>
 <nav class="navbar navbar-inverse ">
     <div class="container">
-        <!--<div class="navbar-header">-->
-        <!--<a class="navbar-brand" href="/" th:href="@{/}">List</a>-->
-        <!--</div>-->
         <div id="navbar">
             <ul class="nav navbar-nav">
                 <li><a href="/" th:href="@{/}">List</a></li>
@@ -36,7 +33,7 @@
                 <legend>Add New Phone Number</legend>
                 <div class="form-group">
                     <label for="name" class="col-sm-3 control-label">Name:</label>
-                    <div class="col-sm-9">
+                    <div class="col-sm-9 col-xs-9">
                         <input type="text" class="form-control" id="name" th:field="*{name}">
                         <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
                               class="help-inline label-danger">Incorrect data</span>
@@ -82,15 +79,12 @@
                               class="help-inline label-danger">Incorrect data</span>
                     </div>
                 </div>
-                <!--<div class="col-sm-12">-->
-                    <!--<p style="padding:10px;"></p>-->
-                <!--</div>-->
                 <div class="form-group">
                     <div class="col-sm-6">
                         <p style="padding:10px;"></p>
                     </div>
                     <div class="col-sm-6 col-sm-offset-3">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="submit" class="btn btn-primary">Save Entry</button>
                     </div>
                 </div>
             </form>
