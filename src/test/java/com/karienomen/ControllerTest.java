@@ -70,11 +70,12 @@ public class ControllerTest {
         List<User> expectedList = asList(user1, user2);
 
         when(userService.findAll()).thenReturn(expectedList);
-        System.out.println(expectedList);
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("list", expectedList));
+
+        verify(userService, times(1)).findAll();
     }
 
     @Test

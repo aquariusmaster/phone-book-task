@@ -16,7 +16,7 @@ import java.util.List;
 
 import static com.karienomen.UserBuilder.userFiller;
 import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 /**
  * Created by andreb on 25.01.17.
@@ -48,6 +48,7 @@ public class UserTest {
         userService.save(user);
         list = userService.findAll();
         assertThat(list, hasSize(1));
+
     }
 
     @Test
@@ -109,24 +110,52 @@ public class UserTest {
     }
 
     @Test
-    public void searchTest() {
+    public void searchOneResultTest() {
 
         User user = userFiller();
         user.getPhones().add(new PhoneNumber("000", "123456"));
         userService.save(user);
 
-        List<User> searchList = userService.findByFilter("123456");
+        List<User> searchList = userService.findByFilter(user.getName());
         assertThat(searchList, hasSize(1));
 
+        searchList = userService.findByFilter(user.getAddress().getCountry());
+        assertThat(searchList, hasSize(1));
+
+        searchList = userService.findByFilter(user.getAddress().getCity());
+        assertThat(searchList, hasSize(1));
+
+        searchList = userService.findByFilter(user.getAddress().getAddressLine());
+        assertThat(searchList, hasSize(1));
+
+        userService.findByFilter("123456");
+        assertThat(searchList, hasSize(1));
+
+        userService.findByFilter("00");
+        assertThat(searchList, hasSize(1));
+
+    }
+
+    @Test
+    public void searchAllResultTest() {
+
+        User user1 = userFiller();
         User user2 = userFiller();
         user2.setName("Ivanov");
+        userService.save(user1);
         userService.save(user2);
 
-        searchList = userService.findByFilter("www");
-        assertThat(searchList, empty());
+        assertThat(userService.findByFilter(""), hasItems(user1, user2));
+        assertThat(userService.findByFilter(""), hasSize(2));
+    }
 
-        searchList = userService.findByFilter("11");
-        assertThat(searchList, hasSize(2));
+    @Test
+    public void searchEmptyResultTest() {
+
+        User user = userFiller();
+        userService.save(user);
+
+        assertThat(userService.findByFilter("no_match"), empty());
 
     }
 
