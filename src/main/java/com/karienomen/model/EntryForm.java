@@ -1,5 +1,6 @@
 package com.karienomen.model;
 
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -9,16 +10,22 @@ import javax.validation.constraints.Size;
 public class EntryForm {
 
     @Size(min = 3)
+    @Pattern(regexp = "[a-zA-Z]+", message = "Must contain letters")
     private String name;
     @Size(min = 3)
+    @Pattern(regexp = "^[a-zA-Z0-9._]+$", message = "Must contain letters, number, or symbols")
     private String country;
     @Size(min = 3)
+    @Pattern(regexp = "^[a-zA-Z0-9._]+$", message = "Must contain letters, number, or symbols")
     private String city;
     @Size(min = 5)
+    @Pattern(regexp = "^[a-zA-Z0-9]+$", message = "Input letters and digits")
     private String addressLine;
     @Size(min = 3)
+    @Pattern(regexp = "^[0-9._]+$", message = "Must be a number")
     private String code;
     @Size(min = 5)
+    @Pattern(regexp = "^[0-9._]+$", message = "Must be a number")
     private String phone;
 
     public String getName() {
