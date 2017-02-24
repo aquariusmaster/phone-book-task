@@ -4,7 +4,7 @@ import com.karienomen.controllers.PhonebookController;
 import com.karienomen.model.Entry;
 import com.karienomen.model.EntryForm;
 import com.karienomen.model.PhoneNumber;
-import com.karienomen.service.UserService;
+import com.karienomen.service.EntryService;
 import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ControllerTest {
 
     @Mock
-    private UserService userService;
+    private EntryService entryService;
 
     @InjectMocks
     private PhonebookController controller;
@@ -69,13 +69,13 @@ public class ControllerTest {
 
         List<Entry> expectedList = asList(entry1, entry2);
 
-        when(userService.findAll()).thenReturn(expectedList);
+        when(entryService.findAll()).thenReturn(expectedList);
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("list", expectedList));
 
-        verify(userService, times(1)).findAll();
+        verify(entryService, times(1)).findAll();
     }
 
     @Test
@@ -116,7 +116,7 @@ public class ControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("success"));
 
-        verify(userService, times(1)).save(user);
+        verify(entryService, times(1)).save(user);
     }
 
     @Test
@@ -136,7 +136,7 @@ public class ControllerTest {
                 .andExpect(view().name("add"))
                 .andExpect(model().errorCount(4));
 
-        verify(userService, times(0)).save(user);
+        verify(entryService, times(0)).save(user);
 
     }
 
@@ -153,9 +153,9 @@ public class ControllerTest {
         String searchTerm2 = "co";
         String searchTerm3 = "no_match";
 
-        when(userService.findByFilter(searchTerm1)).thenReturn(expectedList1);
-        when(userService.findByFilter(searchTerm2)).thenReturn(expectedList2);
-        when(userService.findByFilter(searchTerm3)).thenReturn(Collections.emptyList());
+        when(entryService.findByFilter(searchTerm1)).thenReturn(expectedList1);
+        when(entryService.findByFilter(searchTerm2)).thenReturn(expectedList2);
+        when(entryService.findByFilter(searchTerm3)).thenReturn(Collections.emptyList());
 
         mockMvc.perform(get("/search").param("q", searchTerm1))
                 .andExpect(status().isOk())
@@ -169,9 +169,9 @@ public class ControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("list", Collections.emptyList()));
 
-        verify(userService, times(1)).findByFilter(searchTerm1);
-        verify(userService, times(1)).findByFilter(searchTerm2);
-        verify(userService, times(1)).findByFilter(searchTerm3);
+        verify(entryService, times(1)).findByFilter(searchTerm1);
+        verify(entryService, times(1)).findByFilter(searchTerm2);
+        verify(entryService, times(1)).findByFilter(searchTerm3);
     }
 
 }

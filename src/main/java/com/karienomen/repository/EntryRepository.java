@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
  * Created by andreb on 26.01.17.
  */
 @Repository
-public interface UserRepository extends JpaRepository<Entry, Long>, JpaSpecificationExecutor {
+public interface EntryRepository extends JpaRepository<Entry, Long>, JpaSpecificationExecutor {
 
     Entry findByName(String name);
 

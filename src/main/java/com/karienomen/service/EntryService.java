@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by andreb on 28.01.17.
  */
-public interface UserService {
+public interface EntryService {
 
     Entry findByName(String name);
     Entry save(Entry entry);

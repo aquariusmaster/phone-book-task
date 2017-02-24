@@ -3,7 +3,7 @@ package com.karienomen;
 import com.karienomen.model.Address;
 import com.karienomen.model.Entry;
 import com.karienomen.model.PhoneNumber;
-import com.karienomen.service.UserService;
+import com.karienomen.service.EntryService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,11 +26,11 @@ import static org.junit.Assert.assertThat;
 public class EntryTest {
 
     @Autowired
-    private UserService userService;
+    private EntryService entryService;
 
     @Before
     public void deleteData(){
-        userService.deleteAll();
+        entryService.deleteAll();
     }
 
 
@@ -38,15 +38,15 @@ public class EntryTest {
     public void userSaveTest(){
 
         Entry entry = userFiller();
-        Entry fetched = userService.save(entry);
+        Entry fetched = entryService.save(entry);
         assertThat(fetched, equalTo(entry));
 
-        List<Entry> list = userService.findAll();
+        List<Entry> list = entryService.findAll();
         assertThat(list, hasSize(1));
 
         Entry oldEntry = userFiller();
-        userService.save(entry);
-        list = userService.findAll();
+        entryService.save(entry);
+        list = entryService.findAll();
         assertThat(list, hasSize(1));
 
     }
@@ -56,11 +56,11 @@ public class EntryTest {
 
         Entry entry = userFiller();
         entry.getAddress().setCity("Kharkiv");
-        Entry savedEntry = userService.save(entry);
+        Entry savedEntry = entryService.save(entry);
         assertThat(entry.getAddress(), samePropertyValuesAs(savedEntry.getAddress()));
         entry.getAddress().setCity("NotCity");
-        userService.save(entry);
-        List<Entry> list = userService.findAll();
+        entryService.save(entry);
+        List<Entry> list = entryService.findAll();
         assertThat(list, hasSize(1));
 
     }
@@ -68,19 +68,19 @@ public class EntryTest {
     @Test
     public void userUpdateTest() {
 
-        Entry entry = userService.save(userFiller());
+        Entry entry = entryService.save(userFiller());
 
         PhoneNumber newPhone = new PhoneNumber("111", "1234567");
         entry.getPhones().add(newPhone);
-        Entry fetched = userService.save(entry);
+        Entry fetched = entryService.save(entry);
         assertThat(fetched.getPhones(), hasSize(2));
 
         fetched.getAddress().setCountry("USA");
-        Entry fetched2 = userService.save(fetched);
+        Entry fetched2 = entryService.save(fetched);
         assertThat(fetched2.getAddress().getCountry(), equalTo("USA"));
         assertThat(fetched2.getAddress().getCity(), equalTo(userFiller().getAddress().getCity()));
 
-        List<Entry> list = userService.findAll();
+        List<Entry> list = entryService.findAll();
         assertThat(list, hasSize(1));
 
     }
@@ -114,24 +114,24 @@ public class EntryTest {
 
         Entry entry = userFiller();
         entry.getPhones().add(new PhoneNumber("000", "123456"));
-        userService.save(entry);
+        entryService.save(entry);
 
-        List<Entry> searchList = userService.findByFilter(entry.getName());
+        List<Entry> searchList = entryService.findByFilter(entry.getName());
         assertThat(searchList, hasSize(1));
 
-        searchList = userService.findByFilter(entry.getAddress().getCountry());
+        searchList = entryService.findByFilter(entry.getAddress().getCountry());
         assertThat(searchList, hasSize(1));
 
-        searchList = userService.findByFilter(entry.getAddress().getCity());
+        searchList = entryService.findByFilter(entry.getAddress().getCity());
         assertThat(searchList, hasSize(1));
 
-        searchList = userService.findByFilter(entry.getAddress().getAddressLine());
+        searchList = entryService.findByFilter(entry.getAddress().getAddressLine());
         assertThat(searchList, hasSize(1));
 
-        userService.findByFilter("123456");
+        entryService.findByFilter("123456");
         assertThat(searchList, hasSize(1));
 
-        userService.findByFilter("00");
+        entryService.findByFilter("00");
         assertThat(searchList, hasSize(1));
 
     }
@@ -142,20 +142,20 @@ public class EntryTest {
         Entry entry1 = userFiller();
         Entry entry2 = userFiller();
         entry2.setName("Ivanov");
-        userService.save(entry1);
-        userService.save(entry2);
+        entryService.save(entry1);
+        entryService.save(entry2);
 
-        assertThat(userService.findByFilter(""), hasItems(entry1, entry2));
-        assertThat(userService.findByFilter(""), hasSize(2));
+        assertThat(entryService.findByFilter(""), hasItems(entry1, entry2));
+        assertThat(entryService.findByFilter(""), hasSize(2));
     }
 
     @Test
     public void searchEmptyResultTest() {
 
         Entry entry = userFiller();
-        userService.save(entry);
+        entryService.save(entry);
 
-        assertThat(userService.findByFilter("no_match"), empty());
+        assertThat(entryService.findByFilter("no_match"), empty());
 
     }
 

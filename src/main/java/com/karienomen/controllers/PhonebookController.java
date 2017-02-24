@@ -2,7 +2,7 @@ package com.karienomen.controllers;
 
 import com.karienomen.model.Entry;
 import com.karienomen.model.EntryForm;
-import com.karienomen.service.UserService;
+import com.karienomen.service.EntryService;
 import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ public class PhonebookController {
     private static Logger logger = LoggerFactory.getLogger(PhonebookController.class);
 
     @Autowired
-    private UserService userService;
+    private EntryService entryService;
 
     @ModelAttribute("entryForm")
     public EntryForm constructUser() {
@@ -36,7 +36,7 @@ public class PhonebookController {
 
     @RequestMapping("/")
     public String getList(Model model){
-        model.addAttribute("list", userService.findAll());
+        model.addAttribute("list", entryService.findAll());
         return "list";
     }
 
@@ -57,7 +57,7 @@ public class PhonebookController {
         logger.info("Form fetched: " + entryForm);
         Entry entry = EntryFormToUserConverter.convert(entryForm);
 
-        userService.save(entry);
+        entryService.save(entry);
 
         return "success";
     }
@@ -65,7 +65,7 @@ public class PhonebookController {
     @RequestMapping("/search")
     public String search(@RequestParam(value = "q", required = false) String searchTerm, Model model){
         logger.info("Get query filter: " + searchTerm);
-        List<Entry> list = userService.findByFilter(searchTerm);
+        List<Entry> list = entryService.findByFilter(searchTerm);
         model.addAttribute("list", list);
         return "list";
     }
