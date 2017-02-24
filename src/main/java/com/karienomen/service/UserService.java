@@ -1,6 +1,6 @@
 package com.karienomen.service;
 
-import com.karienomen.model.User;
+import com.karienomen.model.Entry;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ import java.util.List;
  */
 public interface UserService {
 
-    User findByName(String name);
-    User save(User user);
-    void delete(User user);
-    List<User> findAll();
-    List<User> findByFilter(String searchTerm);
+    Entry findByName(String name);
+    Entry save(Entry entry);
+    void delete(Entry entry);
+    List<Entry> findAll();
+    List<Entry> findByFilter(String searchTerm);
     void deleteAll();
 }

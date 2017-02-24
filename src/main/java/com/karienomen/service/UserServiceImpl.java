@@ -1,7 +1,7 @@
 package com.karienomen.service;
 
 import com.karienomen.model.Address;
-import com.karienomen.model.User;
+import com.karienomen.model.Entry;
 import com.karienomen.repository.UserRepository;
 import com.karienomen.repository.specification.UserSpecification;
 import org.slf4j.Logger;
@@ -26,51 +26,51 @@ public class UserServiceImpl implements UserService{
     @Autowired
     UserRepository userRepository;
 
-    public User findByName(String name){
-        User returnUser = userRepository.findByName(name);
-        logger.info("User was finded by name '\''" + name + "'\': " + returnUser);
-        return returnUser;
+    public Entry findByName(String name){
+        Entry returnEntry = userRepository.findByName(name);
+        logger.info("Entry was finded by name '\''" + name + "'\': " + returnEntry);
+        return returnEntry;
     }
 
-    public User save(User user){
-        logger.info("User for save: " + user);
+    public Entry save(Entry entry){
+        logger.info("Entry for save: " + entry);
 
-        User fetchedUser = userRepository.findByName(user.getName());
-        User returnUser = null;
-        if (fetchedUser != null){
+        Entry fetchedEntry = userRepository.findByName(entry.getName());
+        Entry returnEntry = null;
+        if (fetchedEntry != null){
             //update address
-            Address updateAddress = fetchedUser.getAddress();
-            updateAddress.setCountry(user.getAddress().getCountry());
-            updateAddress.setCity(user.getAddress().getCity());
-            updateAddress.setAddressLine(user.getAddress().getAddressLine());
+            Address updateAddress = fetchedEntry.getAddress();
+            updateAddress.setCountry(entry.getAddress().getCountry());
+            updateAddress.setCity(entry.getAddress().getCity());
+            updateAddress.setAddressLine(entry.getAddress().getAddressLine());
             //add new PhoneNumber (update is not expected in the task!)
-            fetchedUser.getPhones().addAll(user.getPhones());
-            returnUser = userRepository.save(fetchedUser);
-            logger.info("User updated: " + returnUser);
-            return returnUser;
+            fetchedEntry.getPhones().addAll(entry.getPhones());
+            returnEntry = userRepository.save(fetchedEntry);
+            logger.info("Entry updated: " + returnEntry);
+            return returnEntry;
         }
-        returnUser = userRepository.save(user);
-        logger.info("User created: " + returnUser);
-        return returnUser;
+        returnEntry = userRepository.save(entry);
+        logger.info("Entry created: " + returnEntry);
+        return returnEntry;
     }
 
-    public void delete(User user){
-        logger.info("Delete user" + user);
-        userRepository.delete(user);
+    public void delete(Entry entry){
+        logger.info("Delete entry" + entry);
+        userRepository.delete(entry);
     }
 
-    public List<User> findAll() {
+    public List<Entry> findAll() {
         return userRepository.findAll();
     }
 
-    public List<User> findByFilter(String searchTerm){
+    public List<Entry> findByFilter(String searchTerm){
 
-        List<User> fetchedList = userRepository.findAll(Specifications.where(UserSpecification.searchInAllFields(searchTerm)));
+        List<Entry> fetchedList = userRepository.findAll(Specifications.where(UserSpecification.searchInAllFields(searchTerm)));
         //filter redundant values for fetchedList
-        Set<User> userSet = new HashSet(fetchedList);
-        List<User> users = new ArrayList<>(userSet);
-        logger.info("Fetched entries with query '" + searchTerm + "': " + users);
-        return users;
+        Set<Entry> entrySet = new HashSet(fetchedList);
+        List<Entry> entries = new ArrayList<>(entrySet);
+        logger.info("Fetched entries with query '" + searchTerm + "': " + entries);
+        return entries;
     }
 
     public void deleteAll(){

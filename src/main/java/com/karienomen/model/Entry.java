@@ -3,7 +3,6 @@ package com.karienomen.model;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -11,10 +10,10 @@ import java.util.Set;
 
 /**
  * Created by andreb on 25.01.17.
- * User class represent Entry
+ * Entry class represent Entry
  */
 @Entity
-public class User {
+public class Entry {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private long userId;
@@ -27,9 +26,9 @@ public class User {
     @Fetch(FetchMode.JOIN)
     private Set<PhoneNumber> phones = new HashSet<>();
 
-    public User(){}
+    public Entry(){}
 
-    public User(String name){
+    public Entry(String name){
         this.name = name;
     }
 
@@ -70,9 +69,9 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
+        Entry entry = (Entry) o;
 
-        return name.equals(user.name);
+        return name.equals(entry.name);
 
     }
 
@@ -83,7 +82,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User: ID# " + userId +
+        return "Entry: ID# " + userId +
                 ", " + name +
                 ", " + address +
                 ", Tel.: " + phones;

@@ -1,7 +1,7 @@
 package com.karienomen.controllers;
 
+import com.karienomen.model.Entry;
 import com.karienomen.model.EntryForm;
-import com.karienomen.model.User;
 import com.karienomen.service.UserService;
 import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.slf4j.Logger;
@@ -55,9 +55,9 @@ public class PhonebookController {
             return "add";
         }
         logger.info("Form fetched: " + entryForm);
-        User user = EntryFormToUserConverter.convert(entryForm);
+        Entry entry = EntryFormToUserConverter.convert(entryForm);
 
-        userService.save(user);
+        userService.save(entry);
 
         return "success";
     }
@@ -65,7 +65,7 @@ public class PhonebookController {
     @RequestMapping("/search")
     public String search(@RequestParam(value = "q", required = false) String searchTerm, Model model){
         logger.info("Get query filter: " + searchTerm);
-        List<User> list = userService.findByFilter(searchTerm);
+        List<Entry> list = userService.findByFilter(searchTerm);
         model.addAttribute("list", list);
         return "list";
     }

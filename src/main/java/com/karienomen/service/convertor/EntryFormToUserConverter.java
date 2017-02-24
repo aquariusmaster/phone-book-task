@@ -1,8 +1,8 @@
 package com.karienomen.service.convertor;
 
 import com.karienomen.model.Address;
+import com.karienomen.model.Entry;
 import com.karienomen.model.PhoneNumber;
-import com.karienomen.model.User;
 import com.karienomen.model.EntryForm;
 import org.springframework.stereotype.Component;
 
@@ -12,22 +12,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class EntryFormToUserConverter {
 
-    public static User convert(EntryForm request){
+    public static Entry convert(EntryForm request){
 
-        User user = new User();
-        user.setName(request.getName());
+        Entry entry = new Entry();
+        entry.setName(request.getName());
 
         Address address = new Address();
         address.setCountry(request.getCountry());
         address.setCity(request.getCity());
         address.setAddressLine(request.getAddressLine());
-        user.setAddress(address);
+        entry.setAddress(address);
 
         PhoneNumber phoneNumber = new PhoneNumber();
         phoneNumber.setCode(request.getCode());
         phoneNumber.setPhone(request.getPhone());
 
-        user.getPhones().add(phoneNumber);
-        return user;
+        entry.getPhones().add(phoneNumber);
+        return entry;
     }
 }

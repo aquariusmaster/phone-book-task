@@ -1,20 +1,16 @@
 package com.karienomen.repository;
 
-import com.karienomen.model.User;
+import com.karienomen.model.Entry;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by andreb on 26.01.17.
  */
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor {
+public interface UserRepository extends JpaRepository<Entry, Long>, JpaSpecificationExecutor {
 
-    User findByName(String name);
+    Entry findByName(String name);
 
 }

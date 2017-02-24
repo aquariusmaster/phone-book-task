@@ -1,9 +1,9 @@
 package com.karienomen;
 
 import com.karienomen.controllers.PhonebookController;
+import com.karienomen.model.Entry;
 import com.karienomen.model.EntryForm;
 import com.karienomen.model.PhoneNumber;
-import com.karienomen.model.User;
 import com.karienomen.service.UserService;
 import com.karienomen.service.convertor.EntryFormToUserConverter;
 import org.junit.Before;
@@ -63,11 +63,11 @@ public class ControllerTest {
 
     @Test
     public void findAll() throws Exception{
-        User user1 = userFiller();
-        User user2 = userFiller();
-        user2.setName("Second");
+        Entry entry1 = userFiller();
+        Entry entry2 = userFiller();
+        entry2.setName("Second");
 
-        List<User> expectedList = asList(user1, user2);
+        List<Entry> expectedList = asList(entry1, entry2);
 
         when(userService.findAll()).thenReturn(expectedList);
 
@@ -80,7 +80,7 @@ public class ControllerTest {
 
     @Test
     public void convertEntryToUserEntryTest() throws Exception{
-        User user = userFiller();
+        Entry user = userFiller();
 
         EntryForm entry = new EntryForm();
         entry.setName(user.getName());
@@ -91,18 +91,18 @@ public class ControllerTest {
         entry.setCode(phone.getCode());
         entry.setPhone(phone.getPhone());
 
-        User convertedUser = EntryFormToUserConverter.convert(entry);
+        Entry convertedEntry = EntryFormToUserConverter.convert(entry);
 
-        assertThat(user, equalTo(convertedUser));
-        assertThat(user.getAddress(), equalTo(convertedUser.getAddress()));
-        assertThat(user.getPhones(), equalTo(convertedUser.getPhones()));
-        assertThat(convertedUser.getPhones(), contains(phone));
+        assertThat(user, equalTo(convertedEntry));
+        assertThat(user.getAddress(), equalTo(convertedEntry.getAddress()));
+        assertThat(user.getPhones(), equalTo(convertedEntry.getPhones()));
+        assertThat(convertedEntry.getPhones(), contains(phone));
 
     }
 
     @Test
     public void saveWithSuccessEntryTest() throws Exception{
-        User user = userFiller();
+        Entry user = userFiller();
         EntryForm entry = entryFormFiller();
 
         mockMvc.perform(post("/add")
@@ -121,7 +121,7 @@ public class ControllerTest {
 
     @Test
     public void saveWithErrorEntryTest() throws Exception{
-        User user = userFiller();
+        Entry user = userFiller();
         EntryForm entry = entryFormFiller();
 
         mockMvc.perform(post("/add")
@@ -142,12 +142,12 @@ public class ControllerTest {
 
     @Test
     public void searchTest() throws Exception{
-        User user1 = userFiller();
-        User user2 = userFiller();
-        user2.setName("Second");
+        Entry entry1 = userFiller();
+        Entry entry2 = userFiller();
+        entry2.setName("Second");
 
-        List<User> expectedList1 = asList(user1, user2);
-        List<User> expectedList2 = asList(user2);
+        List<Entry> expectedList1 = asList(entry1, entry2);
+        List<Entry> expectedList2 = asList(entry2);
 
         String searchTerm1 = "";
         String searchTerm2 = "co";

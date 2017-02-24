@@ -1,35 +1,35 @@
 package com.karienomen;
 
 import com.karienomen.model.Address;
+import com.karienomen.model.Entry;
 import com.karienomen.model.EntryForm;
 import com.karienomen.model.PhoneNumber;
-import com.karienomen.model.User;
 
 /**
  * Created by andreb on 29.01.17.
  */
 public class UserBuilder {
 
-    public static User userFiller(){
-        User user = new User();
-        user.setName("Andrey Bobrov");
+    public static Entry userFiller(){
+        Entry entry = new Entry();
+        entry.setName("Andrey Bobrov");
 
         Address address = new Address();
         address.setCountry("Ukraine");
         address.setCity("Kyiv");
         address.setAddressLine("Kopernika, 11, 44");
-        user.setAddress(address);
+        entry.setAddress(address);
 
         PhoneNumber phoneNumber = new PhoneNumber("066", "2046725");
 
-        user.getPhones().add(phoneNumber);
+        entry.getPhones().add(phoneNumber);
 
-        return user;
+        return entry;
     }
 
     public static EntryForm entryFormFiller(){
 
-        User user = userFiller();
+        Entry user = userFiller();
 
         EntryForm entry = new EntryForm();
         entry.setName(user.getName());
