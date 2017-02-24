@@ -72,8 +72,8 @@ public class PhoneNumber implements Serializable{
 
     @Override
     public int hashCode() {
-        int result = code.hashCode();
-        result = 31 * result + phone.hashCode();
+        int result = code != null ? code.hashCode() : 0;
+        result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
     }
 

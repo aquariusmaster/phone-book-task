@@ -129,12 +129,12 @@ public class ControllerTest {
                 .param("country", entry.getCountry())
                 .param("city", "0")  // error 2
                 .param("addressLine", entry.getAddressLine())
-                .param("code", "")  //error 3
+                .param("code", "")  //error 3 and error 4
                 .param("phone", entry.getPhone()))
 
                 .andExpect(status().isOk())
                 .andExpect(view().name("add"))
-                .andExpect(model().errorCount(3));
+                .andExpect(model().errorCount(4));
 
         verify(userService, times(0)).save(user);
 
