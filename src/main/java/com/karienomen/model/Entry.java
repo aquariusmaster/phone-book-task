@@ -16,7 +16,7 @@ import java.util.Set;
 public class Entry {
 
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    private long entryId;
     @Column(nullable = false)
     private String name;
     @OneToOne(cascade=CascadeType.ALL, fetch = FetchType.EAGER)
@@ -32,12 +32,12 @@ public class Entry {
         this.name = name;
     }
 
-    public long getUserId() {
-        return userId;
+    public long getEntryId() {
+        return entryId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setEntryId(long entryId) {
+        this.entryId = entryId;
     }
 
     public String getName() {
@@ -82,7 +82,7 @@ public class Entry {
 
     @Override
     public String toString() {
-        return "Entry: ID# " + userId +
+        return "Entry: ID# " + entryId +
                 ", " + name +
                 ", " + address +
                 ", Tel.: " + phones;
