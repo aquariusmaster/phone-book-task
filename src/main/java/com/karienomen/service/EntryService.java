@@ -10,6 +10,7 @@ import java.util.List;
 public interface EntryService {
 
     Entry findByName(String name);
+    Entry findOne(Long entryId);
     Entry save(Entry entry);
     void delete(Entry entry);
     List<Entry> findAll();

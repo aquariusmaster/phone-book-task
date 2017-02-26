@@ -53,11 +53,6 @@ public class PhoneNumber implements Serializable{
         this.phone = phone;
     }
 
-    public String getFullAddress(){
-        return "(" + code + ") " + phone;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,7 +74,7 @@ public class PhoneNumber implements Serializable{
 
     @Override
     public String toString() {
-        return getFullAddress();
+        return "(" + code + ") " + phone;
     }
 
 }

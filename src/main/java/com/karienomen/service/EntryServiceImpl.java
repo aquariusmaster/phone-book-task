@@ -78,4 +78,9 @@ public class EntryServiceImpl implements EntryService {
         entryRepository.deleteAll();
     }
 
+    public Entry findOne(Long entryId){
+        logger.info("Find by id" + entryId);
+        return entryRepository.findOne(entryId);
+    }
+
 }
