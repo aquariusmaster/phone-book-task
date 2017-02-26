@@ -18,7 +18,7 @@ import java.util.List;
  * Created by andreb on 26.02.17.
  */
 @RestController
-@RequestMapping("/entry")
+@RequestMapping("/rest")
 public class RestEntryController {
 
     private static Logger logger = LoggerFactory.getLogger(PhonebookController.class);
@@ -26,10 +26,10 @@ public class RestEntryController {
     @Autowired
     private EntryService entryService;
 
-    @ModelAttribute("entryForm")
-    public EntryForm constructUser() {
-        return new EntryForm();
-    }
+//    @ModelAttribute("entryForm")
+//    public EntryForm constructUser() {
+//        return new EntryForm();
+//    }
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Entry> getList(){
@@ -37,7 +37,7 @@ public class RestEntryController {
         return fetched;
     }
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public Entry getEntryById(@PathVariable(value = "id", required = false) long entryId){
         Entry fetched = entryService.findOne(entryId);
         logger.info("Entry fetched: " + fetched);
@@ -51,11 +51,11 @@ public class RestEntryController {
         return fetched;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public Entry saveEntry(@ModelAttribute @Valid EntryForm entryForm,
+    @RequestMapping(consumes = "application/json", method = RequestMethod.POST)
+    public Entry saveEntry(@RequestBody @Valid EntryForm entryForm,
                             BindingResult result){
         if (result.hasErrors()){
-            logger.error("errors: " + result.getAllErrors().size(), result);
+            logger.error("Validation errors: " + result.getAllErrors().size(), result);
             return new Entry(){
                 public String getError(){
                     return result.toString();
@@ -73,7 +73,7 @@ public class RestEntryController {
     @RequestMapping("/search")
     public List<Entry> search(@RequestParam(value = "q", required = false) String searchTerm, Model model){
         logger.info("Get query filter: " + searchTerm);
-        if(searchTerm == null){
+        if(searchTerm == ""){
             return getList();
         }else{
             return entryService.findByFilter(searchTerm);

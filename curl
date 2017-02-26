@@ -1,0 +1,3 @@
+curl -v -H "Content-Type: application/json" -X POST -d '{"name":"K","country":"Ukraine","city":"Kiev","addressLine":"Kopernika 16","code":"066","phone":"2046725"}' http://localhost:8080/entry
+
+

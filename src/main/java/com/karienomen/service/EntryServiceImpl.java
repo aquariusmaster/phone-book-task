@@ -43,6 +43,7 @@ public class EntryServiceImpl implements EntryService {
             updateAddress.setCountry(entry.getAddress().getCountry());
             updateAddress.setCity(entry.getAddress().getCity());
             updateAddress.setAddressLine(entry.getAddress().getAddressLine());
+            fetchedEntry.setAddress(updateAddress);
             //add new PhoneNumber (update is not expected in the task!)
             fetchedEntry.getPhones().addAll(entry.getPhones());
             returnEntry = entryRepository.save(fetchedEntry);
